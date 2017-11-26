@@ -1,0 +1,8 @@
+<div>
+    <form @submit.prevent="onSubmit">
+        {{first}} {{operator}} {{second}} =
+        <input type="number" v-model="answer"/>
+        <button>Submit</button>
+    </form>
+    {{correction}}
+</div>

@@ -1,0 +1,68 @@
+{
+    "name": "math",
+    "version": "0.1.0",
+    "description": "A Vue.js project",
+    "author": "simardo <simardo@gmail.com>",
+    "private": false,
+    "scripts": {
+        "clean": "rimraf dist",
+        "tsc": "tsc && copyfiles -u 1 ./src/**/*.json dist && copyfiles -u 1 ./src/**/*.html dist && copyfiles -u 1 ./src/**/*.scss dist && copyfiles -u 1 ./src/public/**/*.* dist && npm run assetsToDist",
+        "dev": "webpack-dev-server --config conf/webpack.config.js --content-base src --colors --port 5000 --open --history-api-fallback",
+        "build": "webpack --env.prod --config conf/webpack.config.js --colors --optimize-minimize",
+        "prod": "http-server dist -p 5000 -g -o",
+        "tslint": "tslint -c conf/tslint.json -e 'src/**/*.d.ts'  -s node_modules/custom-tslint-formatters/formatters -t grouped 'src/**/*.ts'  'tests/e2e/*.ts'",
+        "stylelint": "stylelint \"src/**/*.css\" \"src/**/*.scss\" --config conf/stylelint.json"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/es6-promise": "^0.0.32",
+        "es6-promise": "^4.1.0",
+        "@types/node": "^7.0.16",
+        "awesome-typescript-loader": "^3.1.3",
+        "axios": "^0.16.1",
+        "compression-webpack-plugin": "^0.4.0",
+        "css-loader": "^0.28.1",
+        "html-webpack-plugin": "^2.28.0",
+        "http-server": "^0.10.0",
+        "node-sass": "^4.5.2",
+        "postcss-loader": "^1.3.3",
+        "rimraf": "^2.6.1",
+        "sass-loader": "^6.0.3",
+        "style-loader": "^0.17.0",
+        "svg-inline-loader": "^0.7.1",
+        "typescript": "^2.3.2",
+        "uglifyjs-webpack-plugin": "^0.4.3",
+        "uglify-js": "^2.8.22",
+        "url-loader": "^0.5.8",
+        "vue": "~2.4.0",
+        "vue-class-component": "^5.0.1",
+        "vue-router": "~2.7.0",
+        "vue-template-compiler": "~2.4.0",
+        "vue-template-loader": "^0.3.1",
+        "vuex": "^2.3.1",
+        "webpack": "^2.4.1",
+        "webpack-dev-server": "^2.4.5",
+        "custom-tslint-formatters": "^2.1.0",
+        "tslint": "^5.1.0",
+        "tslint-config-standard": "^5.0.2",
+        "tslint-loader": "^3.5.3",
+        "stylelint": "^7.10.1",
+        "stylelint-config-standard": "^16.0.0",
+        "stylelint-scss": "^1.4.4",
+        "stylelint-webpack-plugin": "^0.7.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/ulaval/vuejs-typescript-template.git"
+    },
+    "engines": {
+        "node": ">= 6.0.0",
+        "npm": ">= 3.0.0"
+    },
+    "browserslist": [
+        "> 1%",
+        "last 2 versions",
+        "not ie <= 10"
+    ],
+    "license": "Apache-2.0"
+}
