@@ -18,8 +18,6 @@ interface Operation {
 @Component
 export default class Welcome extends Vue {
     private max: number = 11;
-    private max1: number = 6;
-    private max2: number = 5;
     private currentOperation: Operation | null = null;
     private answer: number = 0;
     private success: Operation[] = [];
@@ -39,12 +37,9 @@ export default class Welcome extends Vue {
             let first: number;
             let second: number;
             if (operator == Operator.Add) {
-                first = Math.round(Math.random() * this.max1);
-                if (first == this.max1) {
-                    second = Math.round(Math.random() * this.max2);
-                } else {
-                    second = Math.round(Math.random() * this.max1);
-                }
+                let res = Math.round(Math.random() * this.max);
+                first = Math.round(Math.random() * res);
+                second = res - first;
             } else {
                 first = Math.round(Math.random() * this.max);
                 second = Math.round(Math.random() * first);
@@ -54,7 +49,7 @@ export default class Welcome extends Vue {
                 second: second,
                 operator: operator,
                 result: -1
-            }
+            };
             console.log('t', this.currentOperation);
         }
     }
