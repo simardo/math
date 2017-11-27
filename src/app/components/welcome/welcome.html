@@ -2,7 +2,6 @@
     <form @submit.prevent="onSubmit">
         {{currentOperation.first}} {{currentOperation.operator}} {{currentOperation.second}} =
         <m-textfield type="tel" v-model="answer" />
-        <m-button>Valider</m-button>
     </form>
     <div style="color:red;float:left">
         <p v-for="r in failsOutput">{{getOperationToString(r)}}</p>

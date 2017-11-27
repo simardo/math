@@ -20,15 +20,12 @@ export default class Welcome extends Vue {
     private max: number = 11;
     private max1: number = 6;
     private max2: number = 5;
-    // private first: number = 0;
-    // private second: number = 0;
-    // private operator: Operator = Operator.Add;
     private currentOperation: Operation | null = null;
     private answer: number = 0;
     private success: Operation[] = [];
     private fails: Operation[] = [];
 
-    protected mounted(): void {
+    protected beforeMount(): void {
         this.doNext();
     }
 
@@ -58,29 +55,29 @@ export default class Welcome extends Vue {
                 operator: operator,
                 result: -1
             }
+            console.log('t', this.currentOperation);
         }
     }
 
     private onSubmit(): void {
         let res: number;
-        if (this.currentOperation) {
-            if (this.currentOperation.operator == Operator.Add) {
-                res = this.currentOperation.first + this.currentOperation.second;
-            } else {
-                res = this.currentOperation.first - this.currentOperation.second;
-            }
-            this.currentOperation.result = this.answer;
-            if (res == this.answer) {
-                this.success.push(this.currentOperation)
-            } else {
-                this.fails.push(this.currentOperation);
-            }
-        }
+        let op: Operation = this.currentOperation as Operation;
 
-        // this.results.push(`${this.first} ${this.operator} ${this.second} = ${res}`);
-        // this.correction = res == this.answer ? 'bravo!' : 'non: ' + (this.first + this.second);
+        if (op.operator == Operator.Add) {
+            res = op.first + op.second;
+        } else {
+            res = op.first - op.second;
+        }
+        op.result = this.answer;
 
         this.doNext();
+
+        console.log(op);
+        if (res == op.result) {
+            this.success.push(op);
+        } else {
+            this.fails.push(op);
+        }
     }
 
     private get failsOutput(): Operation[] {
