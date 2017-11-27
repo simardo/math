@@ -15,6 +15,7 @@
     },
     "dependencies": {},
     "devDependencies": {
+        "@ulaval/modul-components": "^1.0.0-beta.1",
         "@types/es6-promise": "^0.0.32",
         "es6-promise": "^4.1.0",
         "@types/node": "^7.0.16",

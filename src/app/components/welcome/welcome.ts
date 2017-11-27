@@ -2,9 +2,16 @@ import Vue from 'vue';
 import Component from 'vue-class-component';
 import WithRender from './welcome.html?style=./welcome.scss';
 
-enum Operation {
+enum Operator {
     Add = '+',
     Sub = '-'
+}
+
+interface Operation {
+    first: number;
+    second: number;
+    operator: Operator;
+    result: number;
 }
 
 @WithRender
@@ -13,11 +20,13 @@ export default class Welcome extends Vue {
     private max: number = 11;
     private max1: number = 6;
     private max2: number = 5;
-    private first: number = 0;
-    private second: number = 0;
-    private operator: Operation = Operation.Add;
-    private answer: number | undefined = 0;
-    private correction: string = '';
+    // private first: number = 0;
+    // private second: number = 0;
+    // private operator: Operator = Operator.Add;
+    private currentOperation: Operation | null = null;
+    private answer: number = 0;
+    private success: Operation[] = [];
+    private fails: Operation[] = [];
 
     protected mounted(): void {
         this.doNext();
@@ -25,26 +34,64 @@ export default class Welcome extends Vue {
 
     private doNext(): void {
         (this.answer as any) = '';
-        this.operator = Math.round(Math.random()) == 0 ? Operation.Add : Operation.Sub;
-        if (this.operator == Operation.Add) {
-            this.first = Math.round(Math.random() * this.max1);
-            if (this.first == this.max1) {
-                this.second = Math.round(Math.random() * this.max2);
-            } else {
-                this.second = Math.round(Math.random() * this.max1);
-            }
+
+        if (this.fails.length > 0 && Math.random() >= 0.5) {
+            this.currentOperation = this.fails.splice(Math.round(Math.random() * this.fails.length) - 1, 1)[0];
         } else {
-            this.first = Math.round(Math.random() * this.max);
-            this.second = Math.round(Math.random() * this.first);
+            let operator: Operator = Math.round(Math.random()) == 0 ? Operator.Add : Operator.Sub;
+            let first: number;
+            let second: number;
+            if (operator == Operator.Add) {
+                first = Math.round(Math.random() * this.max1);
+                if (first == this.max1) {
+                    second = Math.round(Math.random() * this.max2);
+                } else {
+                    second = Math.round(Math.random() * this.max1);
+                }
+            } else {
+                first = Math.round(Math.random() * this.max);
+                second = Math.round(Math.random() * first);
+            }
+            this.currentOperation = {
+                first: first,
+                second: second,
+                operator: operator,
+                result: -1
+            }
         }
     }
 
     private onSubmit(): void {
-        if (this.operator == Operation.Add) {
-            this.correction = this.first + this.second == this.answer ? 'bravo!' : 'non: ' + (this.first + this.second);
-        } else {
-            this.correction = this.first - this.second == this.answer ? 'bravo!' : 'non: ' + (this.first - this.second);
+        let res: number;
+        if (this.currentOperation) {
+            if (this.currentOperation.operator == Operator.Add) {
+                res = this.currentOperation.first + this.currentOperation.second;
+            } else {
+                res = this.currentOperation.first - this.currentOperation.second;
+            }
+            this.currentOperation.result = this.answer;
+            if (res == this.answer) {
+                this.success.push(this.currentOperation)
+            } else {
+                this.fails.push(this.currentOperation);
+            }
         }
+
+        // this.results.push(`${this.first} ${this.operator} ${this.second} = ${res}`);
+        // this.correction = res == this.answer ? 'bravo!' : 'non: ' + (this.first + this.second);
+
         this.doNext();
+    }
+
+    private get failsOutput(): Operation[] {
+        return this.fails.slice().reverse();
+    }
+
+    private get successOutput(): Operation[] {
+        return this.success.slice().reverse();
+    }
+
+    private getOperationToString(operation: Operation): string {
+        return `${operation.first} ${operation.operator} ${operation.second} = ${operation.result}`;
     }
 }

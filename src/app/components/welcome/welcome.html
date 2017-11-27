@@ -1,8 +1,14 @@
 <div>
     <form @submit.prevent="onSubmit">
-        {{first}} {{operator}} {{second}} =
-        <input type="number" v-model="answer"/>
-        <button>Submit</button>
+        {{currentOperation.first}} {{currentOperation.operator}} {{currentOperation.second}} =
+        <m-textfield type="tel" v-model="answer" />
+        <m-button>Valider</m-button>
     </form>
-    {{correction}}
+    <div style="color:red;float:left">
+        <p v-for="r in failsOutput">{{getOperationToString(r)}}</p>
+    </div>
+
+    <div style="margin-left:40px;color:green;float: left">
+        <p v-for="r in successOutput">{{getOperationToString(r)}}</p>
+    </div>
 </div>
