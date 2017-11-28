@@ -1,10 +1,10 @@
 <div>
-    <form @submit.prevent="onSubmit">
+    <form @submit.prevent="onSubmit" autocomplete="off">
         {{currentOperation.first}} {{currentOperation.operator}} {{currentOperation.second}} =
         <m-textfield type="tel" v-model="answer" />
     </form>
     <div style="color:red;float:left">
-        <p v-for="r in failsOutput">{{getOperationToString(r)}}</p>
+        <p v-for="r in failsOutput">{{getOperationToString(r)}} ({{r.correction}})</p>
     </div>
 
     <div style="margin-left:40px;color:green;float: left">
