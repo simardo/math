@@ -18,7 +18,7 @@ interface Operation {
 @WithRender
 @Component
 export default class Welcome extends Vue {
-    private weight: number[] = [1, 1, 1, 1, 2, 3, 4, 5, 6, 8, 10, 15]; // 1-12
+    private weight: number[] = [1, 1, 1, 1, 1, 3, 4, 4, 5, 7, 11, 13, 15]; // 1-13
     private distribution: number[] = [];
     private currentOperation: Operation | null = null;
     private answer: number = 0;
