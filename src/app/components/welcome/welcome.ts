@@ -4,9 +4,9 @@ import WithRender from './welcome.html?style=./welcome.scss';
 
 enum Operator {
     Add = '+',
-    Sub = '-',
+    Sub = '-'/*,
     Multiply = 'x',
-    Divide = '÷'
+    Divide = '÷'*/ // test again
 }
 
 interface Operation {
