@@ -6,7 +6,7 @@ enum Operator {
     Add = '+',
     Sub = '-',
     Multiply = 'x',
-    Divide = '÷'
+    Divide = '÷' // or '/' if confusion qith + char
 }
 
 interface Operation {
